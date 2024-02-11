@@ -6,7 +6,7 @@ dotenv.config();
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const uploadOnCloudinary = async (localPath) => {
@@ -15,10 +15,11 @@ const uploadOnCloudinary = async (localPath) => {
             resource_type: "auto",
             upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
         });
+        fs.unlinkSync(localPath);
         return response;
     } catch (error) {
         console.error("ERROR WHILE UPLOADING ON CLOUDINARY", error);
-        fs.unlink(localPath);
+        fs.unlinkSync(localPath);
         return null;
     }
 };
