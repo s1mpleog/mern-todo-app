@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
         required: [true, "fullName is required"],
     },
     avatarImage: {
-        type: String,
-        required: [true, "avatarImage is required"],
+        url: { type: String, required: [true, "Avatar image is required"] },
+        publicId: { type: String },
     },
     password: {
         type: String,
